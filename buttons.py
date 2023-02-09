@@ -11,7 +11,7 @@ maxcount = 24
 
 class Button1(QPushButton):
     def __init__(self, stacked_widget):
-        super().__init__()
+        super().__init__(parent=None)
         self.setText("Next Image")
         self.clicked.connect(self.showMessage)
         self.setFixedSize(200,50)
