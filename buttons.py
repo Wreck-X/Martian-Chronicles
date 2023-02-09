@@ -1,14 +1,13 @@
-from PySide6.QtWidgets import  QPushButton,QVBoxLayout,QRadioButton,QLineEdit,QWidget,QLabel,QComboBox
+from PySide6.QtWidgets import  QPushButton,QRadioButton,QWidget,QLabel,QComboBox
 from PySide6.QtGui import QPixmap
 import threading
 import requests,os,json,ezgmail
-import Martian_chronicles
 os.chdir(r'/home/wreck/Desktop/Projects/Martian-Chronicles/')
 marskey = os.getenv("marskey")
 rovername = ""
 count = None
 earth_date = ""
-
+maxcount = 24
 
 class Button1(QPushButton):
     def __init__(self, stacked_widget):
@@ -22,7 +21,7 @@ class Button1(QPushButton):
         if count == None:
             count = 1
         else:
-            if count<24:
+            if count<maxcount:
                 count+= 1
             else:
                 count = 0
@@ -40,12 +39,12 @@ class Button2(QPushButton):
     def showMessage(self):
         global count
         if count == None:
-            count = 24
+            count = maxcount
         else:
             if count>0:
                 count -= 1
             else:
-                count = 24
+                count = maxcount
         print(count)
         self.stacked_widget.setCurrentIndex(count)
         
@@ -56,15 +55,20 @@ class Button3(QPushButton):
         super().__init__()
         self.setText("Send Email")
         self.setFixedSize(200,50)
-        self.clicked.connect(self.showMessage)
+        self.clicked.connect(self.threading)
         self.linedit = linedit
         
     def showMessage(self):
+        pnglist = [f"{i}.png" for i in range(maxcount + 1)]
+        print(pnglist)
         mail = self.linedit.text().split(',')
         for i in mail:
-            ezgmail.send(i,'lmao','idk',['0.png'])
+            ezgmail.send(i,'lmao','idk',pnglist)
             print("sent email to ",i)
 
+    def threading(self):
+        thread = threading.Thread(target=self.showMessage)
+        thread.start()
 class Fetchbutton(QPushButton):
     def __init__ (self,mainlayout,imagelayout,stacked_widget,calendar):
         super().__init__()
@@ -78,6 +82,7 @@ class Fetchbutton(QPushButton):
         
     
     def fetchdata(self):
+        global maxcount
         earth_date  = self.calender.selectedDate().toString()
         earth_date = earth_date.split()
         earth_date.pop(0)
@@ -95,6 +100,7 @@ class Fetchbutton(QPushButton):
             try:
                 urlist.append(json_data["photos"][i]["img_src"])
             except IndexError:
+                maxcount = i
                 break
         for index,item in enumerate(urlist):
             response = requests.get(item,allow_redirects=True)

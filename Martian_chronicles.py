@@ -1,7 +1,7 @@
 import sys
-from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget ,QHBoxLayout,QLineEdit,QCalendarWidget,QStackedWidget,QComboBox
+from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget ,QHBoxLayout,QLineEdit,QCalendarWidget,QStackedWidget
 from buttons import *
-from PySide6.QtCore import Qt,QThread, Signal
+from PySide6.QtCore import Qt
 class MainWindow(QMainWindow):
     
     def __init__(self,parent=None):
