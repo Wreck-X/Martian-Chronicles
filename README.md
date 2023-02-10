@@ -9,11 +9,13 @@ First install the required libraries
 pip install -r requirements.txt
 ```
 
-for launching the gui
+Enable a gmail api for the app at https://developers.google.com/gmail/api/quickstart/python/ and get a credentials.json file and store it in the project directory
 
+For Launching the gui
 ```bash
 python3 Martian_chronicles.py
 ```
+
 # Features
 
 - Downloading Rover images
