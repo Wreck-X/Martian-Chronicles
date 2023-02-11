@@ -16,6 +16,10 @@ For Launching the gui
 python3 Martian_chronicles.py
 ```
 
+- For sending multiple emails seperate the emails with commas
+
+- Make sure to change the chdir path in buttons.py to your needs for the gui to work
+
 # Features
 
 - Downloading Rover images

@@ -2,7 +2,7 @@ from PySide6.QtWidgets import  QPushButton,QRadioButton,QWidget,QLabel,QComboBox
 from PySide6.QtGui import QPixmap
 import threading
 import requests,os,json,ezgmail
-os.chdir(r'/home/wreck/Desktop/Projects/Martian-Chronicles/')
+os.chdir(r'/home/wreck/Desktop/Projects/Martian-Chronicles_/')
 marskey = os.getenv("marskey")
 rovername = ""
 count = None
@@ -63,6 +63,7 @@ class Button3(QPushButton):
         print(pnglist)
         mail = self.linedit.text().split(',')
         for i in mail:
+            print(pnglist)
             ezgmail.send(i,'lmao','idk',pnglist)
             print("sent email to ",i)
 
@@ -106,6 +107,7 @@ class Fetchbutton(QPushButton):
             response = requests.get(item,allow_redirects=True)
             if response.status_code:
                 open(f"{index}.png",'wb').write(response.content)
+        print('done')
 
 
 
